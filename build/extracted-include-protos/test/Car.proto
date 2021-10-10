@@ -1,0 +1,13 @@
+syntax = "proto3";
+package com.vo;
+
+option java_package = "com.vo";
+option  java_outer_classname = "SandeepCar";
+message Car {
+        string model =1;
+        int32 year =2;
+        string rc_number = 3;
+        int64 price = 4;
+        string profit =5;
+        string owner_name=6;
+}

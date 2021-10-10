@@ -1,0 +1,44 @@
+plugins {
+    id "com.google.protobuf" version "0.8.17"
+    id 'org.springframework.boot' version '2.5.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "java"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'com.google.protobuf', name: 'protobuf-java', version: '4.0.0-rc-2'
+    implementation group: 'com.google.protobuf', name: 'protobuf-java-util', version: '4.0.0-rc-2'
+    implementation group: 'io.grpc', name: 'grpc-all', version: '1.41.0'
+}
+
+
+
+
+test {
+    useJUnitPlatform()
+}
+
+
+
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'org.example.RestController'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
